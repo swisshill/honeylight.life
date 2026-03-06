@@ -154,6 +154,22 @@
       color:rgba(255,250,242,.92);
     }
 
+    .flowline{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:18px;
+      padding:8px 14px;
+      border:1px solid rgba(255,250,242,.18);
+      border-radius:999px;
+      background:rgba(255,250,242,.08);
+      color:rgba(255,250,242,.9);
+      font-size:.8rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      backdrop-filter:blur(8px);
+    }
+
     .section{
       padding:112px 0;
     }
@@ -164,11 +180,14 @@
       gap:28px;
       align-items:end;
       margin-bottom:34px;
+      padding-top:20px;
     }
+
+    
 
     .section-head p{
       margin:0;
-      color:var(--muted);
+      color:#665b52;
       max-width:46ch;
     }
 
@@ -190,6 +209,32 @@
       display:grid;
       grid-template-columns:1.25fr .75fr;
       gap:24px;
+    }
+
+    .concept-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .concept-pillars{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+
+    .pillar{
+      padding:22px 18px;
+      border:1px solid rgba(36,26,18,.10);
+      border-radius:18px;
+      background:rgba(255,248,236,.6);
+      box-shadow:0 10px 34px rgba(25,18,10,.05);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.82rem;
+      color:#665b52;
+      text-align:center;
     }
 
     .card,
@@ -270,7 +315,7 @@
 
     .feature-body p{
       margin:0;
-      color:var(--muted);
+      color:#665b52;
     }
 
     .tag{
@@ -332,6 +377,27 @@
       font-weight:600;
     }
 
+    .reflection{
+      padding:132px 0;
+      background:
+        linear-gradient(180deg, rgba(23,16,10,.42), rgba(23,16,10,.38)),
+        url('images/honeylight-band.jpg') center/cover no-repeat;
+      color:#fffaf2;
+    }
+
+    .reflection-quote{
+      max-width:700px;
+      padding:0;
+    }
+
+    .reflection-quote p{
+      margin:0;
+      font-size:clamp(1.8rem, 1.25rem + 1.7vw, 3rem);
+      line-height:1.14;
+      letter-spacing:.01em;
+      font-weight:500;
+    }
+
     .contact-grid{
       display:grid;
       grid-template-columns:1.15fr .85fr;
@@ -342,7 +408,10 @@
       padding:30px;
     }
 
-    .contact-card p{margin:0 0 18px;color:var(--muted)}
+    .contact-card p{
+      margin:0 0 18px;
+      color:#665b52;
+    }
 
     .contact-list{
       display:grid;
@@ -395,12 +464,17 @@
     @media (max-width: 980px){
       .section-head,
       .intro-grid,
+      .concept-grid,
       .band .shell,
       .contact-grid{
         grid-template-columns:1fr;
       }
 
       .feature-grid{
+        grid-template-columns:1fr;
+      }
+
+      .concept-pillars{
         grid-template-columns:1fr;
       }
 
@@ -456,6 +530,35 @@
             Exploring how sunlight becomes structure, intelligence, and civilization —
             and building scalable energy and habitat systems that think in centuries.
           </p>
+          <div class="flowline">Sunlight → Life → Intelligence → Civilization</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="concept">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Concept</div>
+            <h2>How Honeylight thinks</h2>
+          </div>
+          <p>
+            Honeylight explores how energy from the sun becomes living systems, intelligence, and human civilization. By observing how nature organizes energy — through plants, ecosystems, and bees — new ways of thinking about economics, education, and cooperation begin to emerge.
+          </p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="card">
+            <p class="lede">
+              Honeylight is a way of thinking about civilization through the lens of energy and living systems. It treats nature not as background scenery, but as a source of models for how value is generated, stored, shared, and renewed across time.
+            </p>
+          </article>
+
+          <div class="concept-pillars">
+            <div class="pillar">Energy</div>
+            <div class="pillar">Living systems</div>
+            <div class="pillar">Human systems</div>
+          </div>
         </div>
       </div>
     </section>
@@ -507,7 +610,7 @@
             <h2>Paths into the Honeylight world</h2>
           </div>
           <p>
-            Each initiative develops the same larger inquiry from a different angle — storytelling, field experience,
+            Each initiative approaches the same larger inquiry from a different angle — storytelling, field experience,
             education, business systems, and cognitive design.
           </p>
         </div>
@@ -592,7 +695,7 @@
       <div class="shell">
         <div class="band-copy">
           <div class="kicker" style="color:rgba(255,250,242,.72)">Principles</div>
-          <h2 style="color:#fffaf2">What the hive teaches about long-term civilization</h2>
+          <h2 style="color:#fffaf2">Learning from living systems</h2>
           <p>
             Honeylight frames bees not only as biological marvels, but as teachers of value transfer, cooperation,
             resilience, and stewardship. The larger proposition is that by studying how living systems handle energy,
@@ -609,24 +712,68 @@
       </div>
     </section>
 
+    <section class="section" id="founder">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Founder</div>
+            <h2>Mark Rubin</h2>
+          </div>
+          <p>
+            Mark Rubin is the creator of the Honeylight concept — a long-term exploration of how energy from the sun becomes life, intelligence, and human civilization.
+          </p>
+        </div>
+
+        <div class="intro-grid">
+          <article class="card">
+            <p class="lede">
+              For most of his life, Mark has been fascinated by how natural systems organize energy, cooperation, and value. Bees, forests, rivers, and human communities all participate in the same fundamental process: transforming sunlight into living structure.
+            </p>
+            <p style="margin-top:16px;color:#665b52">
+              Honeylight emerged from this curiosity. It is both a conceptual framework and a set of practical experiments exploring how biological systems can inform the design of human systems — from education and economics to hospitality and environmental stewardship.
+            </p>
+            <p style="margin-top:16px;color:#665b52">
+              Through projects such as Honeylight Glamping, educational tools like BeeBox, and the podcasts Practical Dreaming and Modeling the Secrets of the Bees, Mark continues to explore how ideas can evolve into real systems that people can participate in.
+            </p>
+          </article>
+
+          <aside class="card aside-card">
+            <div>
+              <span class="tag">Builder of dreams</span>
+              <h3>Observation · models · experiments</h3>
+            </div>
+            <p>
+              Mark often describes his mind as full of models. Honeylight reflects decades of observation, experimentation, and storytelling aimed at understanding how living systems sustain themselves — and what humanity might learn from them.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="reflection" aria-label="Reflection section">
+      <div class="shell">
+        <div class="reflection-quote">
+          <p>Civilization begins with sunlight.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="contact">
       <div class="shell">
         <div class="section-head">
           <div>
             <div class="kicker">Contact</div>
-            <h2>Start with a conversation</h2>
+            <h2>Connect</h2>
           </div>
           <p>
-            Use this section for partnerships, publishing conversations, podcast listening links,
-            glamping enquiries, or project collaboration.
+            Honeylight is an evolving exploration of energy, living systems, and human cooperation. If these ideas resonate with you, the conversation is welcome.
           </p>
         </div>
 
         <div class="contact-grid">
           <article class="contact-card">
             <p>
-              Replace the text below with the preferred email address, external links, or a contact form embed.
-              The button can point to a mailto link, a Tally form, or another page.
+              For partnerships, podcast conversations, glamping enquiries, or broader discussion around Honeylight, get in touch below.
             </p>
             <a class="button" href="mailto:hello@honeylight.life">Get in touch</a>
             <div class="contact-list">
@@ -640,12 +787,10 @@
               </div>
               <div>
                 <span class="contact-label">Suggested external links</span>
-                <span>Podcast platforms · Glamping site · Mark Rubin profile</span>
+                <span><a href="https://www.youtube.com/@markianrubin">Podcast platforms</a> · <a href="https://www.honeylightglamping.life/">Glamping site</a> · <a href="https://www.markianrubin.life">Mark Rubin</a></span>
               </div>
             </div>
           </article>
-
-          
         </div>
       </div>
     </section>
@@ -653,7 +798,7 @@
 
   <footer class="site-footer">
     <div class="shell">
-      Honeylight
+      © 2026 Honeylight
     </div>
   </footer>
 </body>
