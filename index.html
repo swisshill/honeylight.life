@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honeylight</title>
+  <meta name="description" content="Honeylight — a real-world first-principles lab exploring how sunlight becomes structure, intelligence, and civilization." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f2e8;
+      --paper:rgba(255,248,236,.84);
+      --paper-strong:rgba(255,248,236,.92);
+      --ink:#241a12;
+      --muted:#5e5248;
+      --line:rgba(36,26,18,.14);
+      --accent:#8b6b2f;
+      --shadow:0 18px 60px rgba(25,18,10,.12);
+      --radius:24px;
+      --max:1180px;
+      --font-sans: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font-family:var(--font-sans);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .shell{
+      width:min(calc(100% - 32px), var(--max));
+      margin:0 auto;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(14px);
+      background:rgba(246,242,232,.72);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .brand-mark{
+      font-family:var(--font-sans);
+      font-size:clamp(1.15rem, 0.98rem + 0.9vw, 1.75rem);
+      font-weight:600;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      line-height:1;
+    }
+
+    .brand-sub{
+      color:var(--muted);
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      font-size:.93rem;
+      color:var(--muted);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible{color:var(--ink)}
+
+    .hero{
+      min-height:100svh;
+      position:relative;
+      display:grid;
+      place-items:end start;
+      background:
+        linear-gradient(180deg, rgba(16,12,8,.01) 0%, rgba(16,12,8,.05) 100%),
+        url('images/honeylight-hero.jpg') center 35%/cover no-repeat;
+      color:#fffaf2;
+      isolation:isolate;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(0,0,0,.03) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,.02) 100%);
+      z-index:-1;
+    }
+
+    .hero-card{
+      width:min(760px, 100%);
+      margin:0 0 64px;
+      padding:34px 34px 30px;
+      border:1px solid rgba(255,250,242,.18);
+      background:rgba(22,14,8,.42);
+      backdrop-filter:blur(8px);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin:0 0 12px;
+      font-size:.8rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      opacity:.88;
+    }
+
+    h1,h2,h3{
+      font-family:var(--font-sans);
+      margin:0;
+      line-height:1.08;
+      font-weight:500;
+    }
+
+    h1{
+      font-size:clamp(2.8rem, 1.7rem + 3.5vw, 5.1rem);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+
+    .hero-card p{
+      font-size:clamp(1.02rem, .96rem + .35vw, 1.22rem);
+      max-width:56ch;
+      margin:18px 0 0;
+      color:rgba(255,250,242,.92);
+    }
+
+    .section{
+      padding:88px 0;
+    }
+
+    .section-head{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:28px;
+      align-items:end;
+      margin-bottom:34px;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      max-width:46ch;
+    }
+
+    .kicker{
+      color:var(--accent);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.78rem;
+      margin-bottom:10px;
+    }
+
+    h2{
+      font-size:clamp(2rem, 1.35rem + 1.9vw, 3.4rem);
+      letter-spacing:.025em;
+      text-transform:uppercase;
+    }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:24px;
+    }
+
+    .card,
+    .feature,
+    .contact-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:30px;
+    }
+
+    .lede{
+      font-size:1.12rem;
+      color:var(--ink);
+      margin:0;
+    }
+
+    .meta{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .aside-card{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:18px;
+      background:linear-gradient(180deg, rgba(255,248,236,.95), rgba(245,236,218,.82));
+    }
+
+    .aside-card h3{
+      font-size:1.5rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:22px;
+    }
+
+    .feature{
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:460px;
+    }
+
+    .feature-image{
+      aspect-ratio:4/3;
+      background-size:cover;
+      background-position:center;
+      border-bottom:1px solid var(--line);
+    }
+
+    .feature-body{
+      padding:26px 26px 30px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      flex:1;
+    }
+
+    .feature-title{
+      font-size:clamp(1.45rem,1.15rem + .7vw,2rem);
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .feature-body p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+      background:rgba(255,255,255,.35);
+    }
+
+    .band{
+      position:relative;
+      padding:120px 0;
+      background:
+        linear-gradient(180deg, rgba(23,16,10,.62), rgba(23,16,10,.52)),
+        url('images/honeylight-band.jpg') center/cover no-repeat;
+      color:#fffaf2;
+    }
+
+    .band .shell{display:grid;grid-template-columns:1fr .8fr;gap:28px;align-items:end}
+
+    .band-copy{
+      max-width:62ch;
+    }
+
+    .band-copy p{
+      color:rgba(255,250,242,.86);
+      margin:14px 0 0;
+      font-size:1.05rem;
+    }
+
+    .quote-card{
+      padding:28px;
+      background:rgba(255,250,242,.1);
+      border:1px solid rgba(255,250,242,.16);
+      border-radius:28px;
+      backdrop-filter:blur(6px);
+    }
+
+    .quote-card p{
+      margin:0;
+      font-size:1.05rem;
+      color:rgba(255,250,242,.92);
+    }
+
+    .quote-card strong{
+      display:block;
+      margin-top:12px;
+      font-size:.82rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(255,250,242,.7);
+      font-weight:600;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+    }
+
+    .contact-card{
+      padding:30px;
+    }
+
+    .contact-card p{margin:0 0 18px;color:var(--muted)}
+
+    .contact-list{
+      display:grid;
+      gap:14px;
+      margin-top:20px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+    }
+
+    .contact-list div{
+      display:grid;
+      gap:4px;
+    }
+
+    .contact-label{
+      color:var(--muted);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid var(--ink);
+      width:max-content;
+      font-size:.92rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      transition:.2s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible{
+      transform:translateY(-1px);
+      background:var(--ink);
+      color:#fffaf2;
+    }
+
+    .site-footer{
+      padding:22px 0 40px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    @media (max-width: 980px){
+      .section-head,
+      .intro-grid,
+      .band .shell,
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-card{
+        margin-bottom:34px;
+        padding:26px;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        align-items:flex-start;
+        padding:14px 0;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        gap:12px 16px;
+      }
+
+      .section{padding:72px 0}
+      .band{padding:88px 0}
+      .card,
+      .aside-card,
+      .feature-body,
+      .contact-card{padding:22px}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Honeylight home">
+        <span class="brand-mark">Honeylight</span>
+        <span class="brand-sub">Sunlight · Structure · Civilization</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#initiatives">Initiatives</a>
+        <a href="#principles">Principles</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Hero section">
+      <div class="shell">
+        <div class="hero-card">
+          <div class="eyebrow">A real-world first-principles lab</div>
+          <h1>Honeylight</h1>
+          <p>
+            Exploring how sunlight becomes structure, intelligence, and civilization —
+            and building scalable energy and habitat systems that think in centuries.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="kicker">About</div>
+            <h2>Practical dreaming, grounded in living systems</h2>
+          </div>
+          <p>
+            Honeylight brings together observation, beekeeping, design, education, and systems thinking.
+            It asks how natural intelligence can guide the way humans build value, habitats, and futures.
+          </p>
+        </div>
+
+        <div class="intro-grid">
+          <article class="card">
+            <p class="lede">
+              Honeylight is presented as a long-horizon experiment in how energy flows through living systems.
+              Forests, rivers, hives, learning systems, and human communities are treated not as separate topics,
+              but as parts of one continuous question: how does life convert light into enduring forms?
+            </p>
+            <div class="meta">
+              
+            </div>
+          </article>
+
+          <aside class="card aside-card">
+            <div>
+              <span class="tag">Core themes</span>
+              <h3>Bees, cognition, habitat, value transfer</h3>
+            </div>
+            <p>
+              The project spans podcasts, glamping, children’s learning systems, real-world beekeeping,
+              and knowledge interfaces designed to increase how much reality a mind can hold and act on.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="initiatives">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Initiatives</div>
+            <h2>Five doors into the Honeylight world</h2>
+          </div>
+          <p>
+            Each initiative develops the same larger inquiry from a different angle — storytelling, field experience,
+            education, business systems, and cognitive design.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/practical-dreaming.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Podcast</span>
+              <h3 class="feature-title">Practical Dreaming</h3>
+              <p>
+                A podcast rooted in Mark Rubin’s lifelong habit of noticing patterns in nature and asking how ideas become living systems.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=89g8seAsORk" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/secrets-of-the-bees.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Podcast</span>
+              <h3 class="feature-title">Modeling the Secrets of the Bees</h3>
+              <p>
+                An exploration of the hive as a model of cooperation, energy flow, abundance, and ecological balance sustained across time.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=T0JAvvRu5DY" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/honeylight-glamping.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Experience</span>
+              <h3 class="feature-title">Honeylight Glamping</h3>
+              <p>
+                A woodland environment in West Virginia where regenerative design, bees, honey, and energy systems become lived experience.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=H94EQXvXBAs" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/honey-is-money.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Learning</span>
+              <h3 class="feature-title">Honey Is Money & BeeBox</h3>
+              <p>
+                A children’s book and board game that teach money, entrepreneurship, and systems thinking through the logic of the hive.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=iSJm_vzUqGQ" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/beebox-system.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Business System</span>
+              <h3 class="feature-title">BeeBox Business System</h3>
+              <p>
+                A hands-on educational platform pairing real beekeeping infrastructure with digital tools so children learn through actual value creation.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=7aUwkYkCyIA" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+
+          <article class="feature">
+            <div class="feature-image" style="background-image:url('images/knowledge-visualization.jpg')"></div>
+            <div class="feature-body">
+              <span class="tag">Cognition</span>
+              <h3 class="feature-title">Knowledge Visualization</h3>
+              <p>
+                A method for encoding complete moments of value transfer so perception, memory, and action become more navigable and compressible.
+              </p>
+              <a class="button" href="https://www.youtube.com/watch?v=d6t8onJH-Us" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="principles" aria-label="Principles section">
+      <div class="shell">
+        <div class="band-copy">
+          <div class="kicker" style="color:rgba(255,250,242,.72)">Principles</div>
+          <h2 style="color:#fffaf2">What the hive teaches about long-term civilization</h2>
+          <p>
+            Honeylight frames bees not only as biological marvels, but as teachers of value transfer, cooperation,
+            resilience, and stewardship. The larger proposition is that by studying how living systems handle energy,
+            humans can design more durable economies, habitats, and interfaces.
+          </p>
+        </div>
+        <aside class="quote-card">
+          <p>
+            The limiting factor for human progress is not intelligence. It is cognitive bandwidth.
+            Honeylight responds by treating knowledge design itself as infrastructure.
+          </p>
+          <strong>Knowledge Visualization</strong>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Contact</div>
+            <h2>Start with a conversation</h2>
+          </div>
+          <p>
+            Use this section for partnerships, publishing conversations, podcast listening links,
+            glamping enquiries, or project collaboration.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card">
+            <p>
+              Replace the text below with the preferred email address, external links, or a contact form embed.
+              The button can point to a mailto link, a Tally form, or another page.
+            </p>
+            <a class="button" href="mailto:hello@honeylight.life">Get in touch</a>
+            <div class="contact-list">
+              <div>
+                <span class="contact-label">Email</span>
+                <span>hello@honeylight.life</span>
+              </div>
+              <div>
+                <span class="contact-label">Location</span>
+                <span>West Virginia, United States</span>
+              </div>
+              <div>
+                <span class="contact-label">Suggested external links</span>
+                <span>Podcast platforms · Glamping site · Mark Rubin profile</span>
+              </div>
+            </div>
+          </article>
+
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      Honeylight
+    </div>
+  </footer>
+</body>
+</html>
